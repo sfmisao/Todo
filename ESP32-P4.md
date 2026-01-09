@@ -21,3 +21,8 @@ ESP-STDIOのKconfigに以下があるが、P4を追加してもだめ
 depends on (IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3)  && !TINY_USB
 以下に、P4はUSB関連のコードが存在しない。
 components/esp_rom
+
+## ESP-ConsoleとTinyUSB CDCについて
+BLOCKINGをサポートしていないので使えない。
+device/esp_tinyusb/vfs_tinyusb.c
+s_vfstusb.flags = flags | O_NONBLOCK; // for now only non-blocking mode is implemented
