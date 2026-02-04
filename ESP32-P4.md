@@ -1,16 +1,19 @@
 # ESP32P4について
 
-## LPコアのMailBoxについて
-ulp_lp_core_intr_enable
-でLPコアの割り込みを有効にすると以下でスタックする。
+~~## LPコアのMailBoxについて~~
+~~ulp_lp_core_intr_enable~~
+~~でLPコアの割り込みを有効にすると以下でスタックする。~~
 ```
 lp_core_mailbox_send
 lp_core_mailbox_send_async
 lp_core_mailbox_receive
 lp_core_mailbox_receive_async
 ```
-非同期か同期かによらずスタックする。
-送受信もしていないのでHPコアも場合によっては一生待つ。
+~~非同期か同期かによらずスタックする。~~
+~~送受信もしていないのでHPコアも場合によっては一生待つ。~~
+
+https://github.com/espressif/esp-idf/issues/18095
+修正された。BIG THANKS
 
 ## MIPI-DSIについて
 ESP-IDF5系列と6系列では若干APIが変更されている。
@@ -36,3 +39,4 @@ BLOCKINGをサポートしていないので使えない。
 ```
 s_vfstusb.flags = flags | O_NONBLOCK; // for now only non-blocking mode is implemented
 ```
+
