@@ -40,3 +40,22 @@ BLOCKINGをサポートしていないので使えない。
 s_vfstusb.flags = flags | O_NONBLOCK; // for now only non-blocking mode is implemented
 ```
 
+## example/https_requestで何をしてもエラーがでる。
+CMakeLists.txt内の下記を削除すると問題ない。
+```
+list(APPEND sdkconfig_defaults $ENV{IDF_PATH}/components/mbedtls/config/mbedtls_preset_default.conf)
+```
+
+```
+CMake Error at C:/esp/v6.0-beta2/esp-idf/tools/cmake/build.cmake:598 (cmake_parse_arguments):
+  Syntax error in cmake code at
+
+    C:/esp/v6.0-beta2/esp-idf/tools/cmake/build.cmake:598
+
+  when parsing string
+
+    SDKCONFIG_DEFAULTS;C:\esp\v6.0-beta2\esp-idf/components/mbedtls/config/mbedtls_preset_default.conf;C:/https_request/sdkconfig.defaults;SDKCONFIG;C:/https_request/sdkconfig;BUILD_DIR;C:/https_request/build;PROJECT_NAME;https_request;PROJECT_DIR;C:/https_request;PROJECT_VER;1;COMPONENTS;main;
+
+  Invalid character escape '\s'.
+```
+エラーから類推すると、WindowsとLinuxのパス文字の取り扱いの差異でエラーが出ている。
